@@ -1,0 +1,28 @@
+{
+  "name": "promise-any",
+  "version": "0.0.1",
+  "description": "returns first successful promise. As in Promise.any() which is not part of the ES6 spec",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m0ppers/promise-any.git"
+  },
+  "keywords": [
+    "promise",
+    "es6",
+    "any",
+    "resolve"
+  ],
+  "author": "Andreas Streichardt <andreas.streichardt@gmail.com>",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/m0ppers/promise-any/issues"
+  },
+  "homepage": "https://github.com/m0ppers/promise-any#readme",
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  }
+}
