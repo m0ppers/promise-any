@@ -1,41 +1,60 @@
 'use strict';
-var anyPromise = require('../index');
+var promiseAny = require('../index');
 var assert = require('assert');
 
-describe('Any test', function() {
-    it('should report failure for empty arrays', function(done) {
+describe('Any test', function () {
+    
+    it('should handle []', function (done) {
         let promises = [];
-        anyPromise(promises).then(function() {
-            done('Empty array should report failure');
-        }, function() {
+        promiseAny(promises).then(function (value) {
+            done(value);
+        }, function (reasons) {
+            assert.deepEqual([], reasons);
             done();
         });
     });
-    it('should handle success and then failure', function(done) {
+    
+    it('should handle [success, failure]', function (done) {
         let promises = [Promise.resolve('p1'), Promise.reject('p2')];
-        anyPromise(promises).then(function(value) {
+        promiseAny(promises).then(function(value) {
             assert.equal(value, 'p1');
             done();
-        }, function(error) {
-            done(error);
+        }, function (reasons) {
+            done(reasons);
         });
     });
-    it('should handle failure and then success', function(done) {
+    
+    it('should handle [failure, success]', function (done) {
         let promises = [Promise.reject('p1'), Promise.resolve('p2')];
-        anyPromise(promises).then(function(value) {
+        promiseAny(promises).then(function (value) {
             assert.equal(value, 'p2');
             done();
-        }, function(error) {
-            done(error);
+        }, function (reasons) {
+            done(reasons);
         });
     });
-    it('should handle failure', function(done) {
+    
+    it('should handle [failure, failure]', function (done) {
         let promises = [Promise.reject('p1'), Promise.reject('p2')];
-        anyPromise(promises).then(function(value) {
+        promiseAny(promises).then(function (value) {
             done('Got value ' + value);
-        }, function(error) {
-            assert.equal(error, 'p2');
+        }, function (reasons) {
+            assert.deepEqual(reasons, ['p1', 'p2']);
             done();
         });
     });
+    
+    it('should handle any iterables', function (done) {
+        let promises = (function *() {
+            yield Promise.reject('p1');
+            yield Promise.resolve('p2');
+        })();
+        promiseAny(promises).then(function(value) {
+            assert.equal(value, 'p2');
+            done();
+        }, function (reasons) {
+            done(reasons);
+        });
+    });
+    
 });
