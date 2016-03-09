@@ -21,6 +21,7 @@
   "bugs": {
     "url": "https://github.com/m0ppers/promise-any/issues"
   },
+  "engines" : { "node" : ">=5.0.0" },
   "homepage": "https://github.com/m0ppers/promise-any#readme",
   "devDependencies": {
     "mocha": "^2.2.5"
