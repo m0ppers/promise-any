@@ -1,9 +1,9 @@
-module.exports = function(promises) {
-    return promises.reduce(function(anyPromise, promise) {
-        return anyPromise.catch(function(reason) {
-            return promise.then(function(result) {
-                return result;
-            });
-        });
-    }, Promise.reject("Promise array is empty"));
+'use strict';
+
+function reverse(promise) {
+    return new Promise((resolve, reject) => promise.then(reject, resolve));
+}
+
+module.exports = function promiseAny(iterable) {
+    return reverse(Promise.all([...iterable].map(reverse)));
 };
