@@ -1,6 +1,6 @@
 {
   "name": "promise-any",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "returns first successful promise. As in Promise.any() which is not part of the ES6 spec",
   "main": "index.js",
   "scripts": {
